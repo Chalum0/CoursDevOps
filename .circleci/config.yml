@@ -16,21 +16,20 @@ jobs:
       - run: npm install
       - run: npm install --no-save eslint
       - run: |
-           echo 'export default [
-            {
+                 echo 'export default [
+                   {
               files: ["**/*.js"],
               languageOptions: {
                 ecmaVersion: "latest",
                 sourceType: "module"
-              },
+                     },
               env: {
                 browser: true,
                 node: true
-              }
-            }
-          ];' > eslint.config.js
+                     },
+                   }
+                 ];' > eslint.config.js
       - run: npx eslint .  # Run ESLint
-      - run: npx eslint .
 
 workflows:
   version: 2
