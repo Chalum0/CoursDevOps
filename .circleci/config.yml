@@ -35,7 +35,8 @@ jobs:
                   sourceType: "module",
                   globals: {
                     browser: true,
-                   
+                    node: true
+                  }
                 },
               }
             ];' > eslint.config.js
