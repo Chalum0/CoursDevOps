@@ -51,7 +51,7 @@ jobs:
     steps:
       - run: echo "Marching through unit tests"
 
-  intergration-tests:
+  integration-tests:
     executor: node/default
     steps:
       - run: echo "Marching through integration tests"
@@ -83,7 +83,7 @@ jobs:
 
 workflows:
   version: 2
-  build-and-lint:
+  build-test:
     jobs:
       - install-dependencies
       - lint-code:
@@ -92,7 +92,6 @@ workflows:
       - package-project:
           requires:
             - lint-code
-
 
 
       - unit-tests: &requires_package
