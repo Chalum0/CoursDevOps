@@ -32,12 +32,11 @@ jobs:
                 files: ["**/*.js"],
                 languageOptions: {
                   ecmaVersion: "latest",
-                  sourceType: "module"
+                  sourceType: "module",
+                  globals: {
+                    browser: true,
+                   
                 },
-                env: {
-                  browser: true,
-                  node: true
-                }
               }
             ];' > eslint.config.js
       - run:
