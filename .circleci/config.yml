@@ -12,6 +12,8 @@ jobs:
   lint-code:
     executor: node/default
     steps:
+      - checkout
+      - run: npm install
       - run: npm run lint
 
 workflows:
