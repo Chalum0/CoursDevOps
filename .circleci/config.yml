@@ -15,6 +15,20 @@ jobs:
       - checkout
       - run: npm install
       - run: npm install --no-save eslint
+      - run: |
+          echo '{
+            "env": {
+              "browser": true,
+              "node": true,
+              "es2021": true
+            },
+            "extends": "eslint:recommended",
+            "parserOptions": {
+              "ecmaVersion": 12,
+              "sourceType": "module"
+            }
+          }' > .eslintrc.json
+      - run: npx eslint .  # Run ESLint
       - run: npx eslint .
 
 workflows:
