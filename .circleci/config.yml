@@ -1,35 +1,48 @@
 version: 2.1
 orbs:
   node: circleci/node@5
+
 jobs:
   install-dependencies:
     executor: node/default
     steps:
       - checkout
-      - run: echo "Building things..."
-      - run: npm install
+      - run:
+          name: Build dependencies
+          command: echo "Building things..."
+      - run:
+          name: Install dependencies
+          command: npm install
 
   lint-code:
     executor: node/default
     steps:
       - checkout
-      - run: npm install
-      - run: npm install --no-save eslint
-      - run: |
-                 echo 'export default [
-                   {
-              files: ["**/*.js"],
-              languageOptions: {
-                ecmaVersion: "latest",
-                sourceType: "module"
-                     },
-              env: {
-                browser: true,
-                node: true
-                     },
-                   }
-                 ];' > eslint.config.js
-      - run: npx eslint .  # Run ESLint
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Install ESLint
+          command: npm install --no-save eslint
+      - run:
+          name: Create ESLint config
+          command: |
+            echo 'export default [
+              {
+                files: ["**/*.js"],
+                languageOptions: {
+                  ecmaVersion: "latest",
+                  sourceType: "module"
+                },
+                env: {
+                  browser: true,
+                  node: true
+                }
+              }
+            ];' > eslint.config.js
+      - run:
+          name: Run ESLint
+          command: npx eslint .  # Run ESLint
 
 workflows:
   version: 2
@@ -39,4 +52,3 @@ workflows:
       - lint-code:
           requires:
             - install-dependencies
-
