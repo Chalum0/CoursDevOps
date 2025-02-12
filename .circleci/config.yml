@@ -18,12 +18,8 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Install ESLint
-          command: npm install --no-save eslint
+      - run: npm install
+      - run: npm install --no-save eslint
       - run:
           name: Create ESLint config
           command: |
@@ -44,6 +40,47 @@ jobs:
           name: Run ESLint
           command: npx eslint .  # Run ESLint
 
+  package-project:
+    executor: node/default
+    steps:
+      - run: mkdir -p ./dist/build
+      - run: echo "Packaged the file properly"
+
+  unit-tests:
+    executor: node/default
+    steps:
+      - run: echo "Marching through unit tests"
+
+  intergration-tests:
+    executor: node/default
+    steps:
+      - run: echo "Marching through integration tests"
+
+  regression-tests:
+    executor: node/default
+    steps:
+      - run: echo "Marching through integration tests"
+
+  performances-tests:
+    executor: node/default
+    steps:
+      - run: echo "Marching through performances tests"
+
+  security-tests:
+    executor: node/default
+    steps:
+      - run: echo "Marching through security tests"
+
+  compatibility-tests:
+    executor: node/default
+    steps:
+      - run: echo "Marching through compatibility tests"
+
+  accessibility-tests:
+    executor: node/default
+    steps:
+      - run: echo "Marching through accessibility tests"
+
 workflows:
   version: 2
   build-and-lint:
@@ -52,3 +89,24 @@ workflows:
       - lint-code:
           requires:
             - install-dependencies
+      - package-project:
+          requires:
+            - lint-code
+
+
+
+      - unit-tests: &requires_package
+          requires:
+            - package-projects
+      - integration-tests:
+          <<: *requires_package
+      - regression-tests:
+          <<: *requires_package
+      - performances-tests:
+          <<: *requires_package
+      - security-tests:
+          <<: *requires_package
+      - compatibility-tests:
+          <<: *requires_package
+      - accessibility-tests:
+          <<: *requires_package
