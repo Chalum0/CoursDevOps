@@ -27,7 +27,7 @@ jobs:
               "ecmaVersion": 12,
               "sourceType": "module"
             }
-          }' > .eslintrc.json
+          }' > eslint.config
       - run: npx eslint .  # Run ESLint
       - run: npx eslint .
 
