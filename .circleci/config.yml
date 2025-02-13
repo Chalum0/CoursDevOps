@@ -146,11 +146,11 @@ workflows:
 
 
       - prepare-deployment-env:
-          requires:
-            - unit-tests
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - hotfix
       - deploy:
           requires:
             - prepare-deployment-env
