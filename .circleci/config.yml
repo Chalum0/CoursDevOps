@@ -146,14 +146,6 @@ workflows:
 
 
       - prepare-deployment-env:
-          requires:
-            - unit-tests
-            - integration-tests
-            - regression-tests
-            - performances-tests
-            - security-tests
-            - compatibility-tests
-            - accessibility-tests
           filters:
             branches:
               only: main
