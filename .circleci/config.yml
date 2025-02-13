@@ -81,6 +81,37 @@ jobs:
     steps:
       - run: echo "Marching through accessibility tests"
 
+  prepare-deployment-env:
+    executor: node/default
+    steps:
+      - run: echo "Preparing deployment environment"
+
+  deploy:
+    executor: node/default
+    steps:
+      - run: echo "Deploying"
+
+
+  check-tests:
+    executor: node/default
+    steps:
+      - run: echo "Checking stuff"
+
+  working-tests:
+    executor: node/default
+    steps:
+      - run: echo "Testing if the app is properly working"
+
+  stress-tests:
+    executor: node/default
+    steps:
+      - run: echo "Testing the app under heavy load"
+
+  final-check:
+    executor: node/default
+    steps:
+      - run: echo "Running final test on the app"
+
 workflows:
   version: 2
   build-test:
@@ -112,3 +143,33 @@ workflows:
           <<: *requires_package
       - accessibility-tests:
           <<: *requires_package
+
+
+      - prepare-deployment-env:
+          requires:
+            - unit-tests
+            - integration-tests
+            - regression-tests
+            - performances-tests
+            - security-tests
+            - compatibility-tests
+            - accessibility-tests
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - prepare-deployment-env
+      - check-tests:
+          requires:
+            - deploy
+      - working-tests:
+          requires:
+            - deploy
+      - stress-tests:
+          requires:
+            - check-tests
+            - working-tests
+      - final-check:
+          requires:
+            - stress-tests
