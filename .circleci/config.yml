@@ -97,6 +97,9 @@ workflows:
       - unit-tests: &requires_package
           requires:
             - package-project
+          filters:
+            branches:
+              only: develop
       - integration-tests:
           <<: *requires_package
       - regression-tests:
