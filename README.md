@@ -45,6 +45,10 @@ A well executed process should look like this in the end:
 ![Picture of jobs execution](images/BuildProcess2.png)
 ![Picture of jobs execution](images/BuildProcess3.png)
 
+
+## The config code in this repo has a working linter that took quite some time to setup. I also wanted to add a real deploy function to my server but I did not have enough time.
+
+
 # Next.js + Jest
 
 This example shows how to configure Jest to work with Next.js.
@@ -88,3 +92,6 @@ pnpm test
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+
+### - Raphaël Zanatta
